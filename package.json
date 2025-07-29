@@ -13,6 +13,8 @@
   "description": "Um simples projeto de API com Node.js, express e MongoDB.",
   "dependencies": {
     "express": "^5.1.0",
+    "mongodb": "^6.18.0",
+    "mongoose": "^7.3.4",
     "nodemon": "^3.1.10"
   }
 }

@@ -1,8 +1,9 @@
 import mongoose, { mongo } from "mongoose";
-import { DB_STRING } from ".end";
+import dotenv from "dotenv";
+dotenv.config();
 
 async function conectaNaDatabase() {
-    mongoose.connect("mongodb+srv://admin:admin123@cluster0.mvnvi4s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    mongoose.connect(process.env.DB_STRING);
 
     return mongoose.connection
 };

@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 async function conectaNaDatabase() {
-    mongoose.connect(process.env.DB_STRING);
+    mongoose.connect(process.env.DB_CONNECTION_STRING);
 
     return mongoose.connection
 };

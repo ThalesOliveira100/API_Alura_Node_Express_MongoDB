@@ -1,5 +1,6 @@
 import express from "express";
 import conectaNaDatabase from "./config/dbConnect.js"
+import livro from "./models/Livro.js";
 
 const conexao = await conectaNaDatabase();
 
@@ -15,48 +16,32 @@ const app = express();
 // Middeware
 app.use(express.json());
 
-const livros = [
-    {
-        id: 1,
-        titulo: "O Senhor dos Anéis"
-    },
-    {
-        id: 2,
-        titulo: "O Hobbit"
-    }
-]
-
-function buscaLivro(id) {
-    return livros.findIndex(livro => {
-        return livro.id === Number(id);
-    })
-}
-
-app.get("/", (req, res) => {
+app.get("/v1", (req, res) => {
     res.status(200).send("Curso de Node.js Alura");;
 });
 
-app.get("/livros", (req, res) => {
-    res.status(200).json(livros);
+app.get("/v1/livros", async (req, res) => {
+    const listaLivros = await livro.find({});
+    res.status(200).json(listaLivros);
 });
 
-app.get("/livros/:id", (req, res) => {
+app.get("/v1/livros/:id", (req, res) => {
     const index = buscaLivro(req.params.id);
     res.status(200).json(livros[index]);
 })
 
-app.post("/livros", (req, res) => {
+app.post("/v1/livros", (req, res) => {
     livros.push(req.body);
     res.status(201).send("livro cadastrado com sucesso.");
 })
 
-app.put("/livros/:id", (req, res) => {
+app.put("/v1/livros/:id", (req, res) => {
     const index = buscaLivro(req.params.id);
     livros[index].titulo = req.body.titulo;
     res.status(200).json(livros[index])
 })
 
-app.delete("/livros/:id", (req, res) => {
+app.delete("/v1/livros/:id", (req, res) => {
     const index = buscaLivro(req.params.id);
     livros.splice(index, 1);
     res.status(200).send("Livro removido com sucesso.");

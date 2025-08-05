@@ -20,11 +20,6 @@ app.get("/v1", (req, res) => {
     res.status(200).send("Curso de Node.js Alura");;
 });
 
-app.get("/v1/livros", async (req, res) => {
-    const listaLivros = await livro.find({});
-    res.status(200).json(listaLivros);
-});
-
 app.get("/v1/livros/:id", (req, res) => {
     const index = buscaLivro(req.params.id);
     res.status(200).json(livros[index]);

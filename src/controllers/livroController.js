@@ -8,7 +8,17 @@ class LivroController {
             res.status(200).json(listaLivros);
             
         } catch (error) {
-            res.status(500).json({ message: `Falha na requisição: ${error.message}`})
+            res.status(500).json({ message: `Falha na requisição: ${error.message}`});
+        }
+    };
+
+    static async listaLivroPorId (req, res) {
+        try {
+            const livroEncontrado = await livro.findById({id: req.params.id});
+            res.status(200).json(livroEncontrado);
+
+        } catch (error) {
+            res.status(500).json({message: `Falha na requisição: ${error.message}`});
         }
     };
 
@@ -24,7 +34,7 @@ class LivroController {
             );
             
         } catch (error) {
-            res.status(500).json({message: `Falha na requisição: ${error.message}`})
+            res.status(500).json({message: `Falha na requisição: ${error.message}`});
         }
     };
 };

@@ -1,6 +1,6 @@
 import express from "express";
 import conectaNaDatabase from "./config/dbConnect.js"
-import livro from "./models/Livro.js";
+import routes from "./routes/index.js";
 
 const conexao = await conectaNaDatabase();
 
@@ -13,12 +13,7 @@ conexao.once("open", () => {
 });
 
 const app = express();
-// Middeware
-app.use(express.json());
-
-app.get("/v1", (req, res) => {
-    res.status(200).send("Curso de Node.js Alura");;
-});
+routes(app);
 
 app.get("/v1/livros/:id", (req, res) => {
     const index = buscaLivro(req.params.id);

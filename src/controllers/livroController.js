@@ -37,6 +37,18 @@ class LivroController {
             res.status(500).json({message: `Falha na requisição: ${error.message}`});
         }
     };
+
+    static async atualizarLivro (req, res) {
+        try {
+            const id = req.params.id;
+            await livro.findByIdAndUpdate(id, req.body);
+            res.status(200).json({ message: "Livro atualizado"});
+
+        } catch (error) {
+            res.status(500).json({message: `Falha na atualização do livro: ${error.message}`});
+        }
+    };
+
 };
 
 export default LivroController

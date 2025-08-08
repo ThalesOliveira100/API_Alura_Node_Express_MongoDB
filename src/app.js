@@ -15,11 +15,6 @@ conexao.once("open", () => {
 const app = express();
 routes(app);
 
-app.get("/v1/livros/:id", (req, res) => {
-    const index = buscaLivro(req.params.id);
-    res.status(200).json(livros[index]);
-})
-
 app.post("/v1/livros", (req, res) => {
     livros.push(req.body);
     res.status(201).send("livro cadastrado com sucesso.");

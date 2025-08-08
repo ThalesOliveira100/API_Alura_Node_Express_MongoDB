@@ -10,7 +10,7 @@ class LivroController {
         } catch (error) {
             res.status(500).json({ message: `Falha na requisição: ${error.message}`})
         }
-    }
+    };
 
     static async cadastrarLivro(req, res) {
         try {
@@ -26,7 +26,7 @@ class LivroController {
         } catch (error) {
             res.status(500).json({message: `Falha na requisição: ${error.message}`})
         }
-    }
+    };
 };
 
 export default LivroController

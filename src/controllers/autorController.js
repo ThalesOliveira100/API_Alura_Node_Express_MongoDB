@@ -5,7 +5,7 @@ class AutorController {
     static async listarAutores(req, res) {
         try {
             const listaAutores = await autor.find({});
-            res.status(200).json(listaAutor);
+            res.status(200).json(listaAutores);
             
         } catch (error) {
             res.status(500).json({ message: `Falha na listagem de autores: ${error.message}`});

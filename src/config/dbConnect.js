@@ -2,10 +2,7 @@ import mongoose, { mongo } from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
-async function conectaNaDatabase() {
-    mongoose.connect(process.env.DB_CONNECTION_STRING);
+mongoose.connect(process.env.DB_CONNECTION_STRING);
+let db = mongoose.connection
 
-    return mongoose.connection
-};
-
-export default conectaNaDatabase;
+export default db;

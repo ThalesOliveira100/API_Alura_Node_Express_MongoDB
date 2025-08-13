@@ -4,10 +4,16 @@ import livros from "./livrosRoutes.js";
 import autores from "./autoresRoutes.js";
 
 const routes = (app) => {
-    app.route("/v1").get((req, res) => res.status(200).send("Curso de API Node Express + MongoDB - Alura"));
+    app.route("/v1").get((req, res) => {
+        res.status(200).send({titulo: "Curso de API Node Express + MongoDB - Alura"})
+    });
     
     // Middewares
-    app.use(express.json(), livros, autores);
+    app.use(
+        express.json(), 
+        livros, 
+        autores
+    );
 };
 
 export default routes;

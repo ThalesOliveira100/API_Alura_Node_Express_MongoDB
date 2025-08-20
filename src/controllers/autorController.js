@@ -1,20 +1,19 @@
-import mongoose from "mongoose";
 import { autores } from "../models/Autor.js";
 
 class AutorController {
 
-    static async listarAutores(req, res) {
+    static async listarAutores(req, res, next) {
         try {
             const listaAutores = await autores.find();
 
             res.status(200).json(listaAutores);
             
-        } catch (error) {
-            res.status(500).json({ message: `Falha na listagem de autores: ${error.message} `});
+        } catch (err) {
+            next(err);
         }
     };
 
-    static async listaAutorPorId (req, res) {
+    static async listaAutorPorId (req, res, next) {
         try {
             const autorEncontrado = await autores.findById(req.params.id);
 
@@ -23,16 +22,12 @@ class AutorController {
             } else {
                 res.status(404).json({ message: "Id do Autor não localizado."});
             };
-        } catch (error) {
-            if (error instanceof mongoose.Error.CastError) {
-                res.status(400).json({message: "Um ou mais dados fornecidos estão incorretos."});
-            } else {
-                res.status(500).json({ message: `Falha na listagem de autor: ${error.message}`});
-            };
+        } catch (err) {
+            next(err);
         };
     };
 
-    static async cadastrarAutor(req, res) {
+    static async cadastrarAutor(req, res, next) {
         try {
             const autor = new autores(req.body);
 
@@ -40,12 +35,12 @@ class AutorController {
 
             res.status(201).send(autorResultado.toJSON());
             
-        } catch (error) {
-            res.status(500).json({ message: `Falha na criação de Autor: ${error.message}` });
-        }
+        } catch (err) {
+            next(err);
+        };
     };
 
-    static async atualizarAutor (req, res) {
+    static async atualizarAutor (req, res, next) {
         try {
             const id = req.params.id;
 
@@ -53,19 +48,19 @@ class AutorController {
 
             res.status(200).json({ message: "Autor atualizado" });
 
-        } catch (error) {
-            res.status(500).json({ message: `Falha na atualização do autor: ${error.message}` });
-        }
+        } catch (err) {
+            next(err);
+        };
     };
 
-    static async excluirAutor (req, res) {
+    static async excluirAutor (req, res, next) {
         try {
             await autores.findByIdAndDelete(req.params.id);
             res.status(200).json({ message: "Autor removido com sucesso."})
 
-        } catch (error) {;
-            res.status(500).json({ message: `Falha na exclusão do autor: ${error.message}` });
-        }
+        } catch (err) {
+            next(err);
+        };
     };
 };
 
